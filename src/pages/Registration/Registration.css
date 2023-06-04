@@ -1,0 +1,24 @@
+.registration  {
+    width: 800px;
+}  
+.lebel {
+    font-size: 14px;
+}
+.control {
+    font-size: 15px;
+}
+
+.form-control:focus {
+    box-shadow: none !important;
+}
+
+.btn-flex {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-flex-child {
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+}
