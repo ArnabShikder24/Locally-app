@@ -17,6 +17,11 @@
     justify-content: flex-end;
 }
 
+.btn-flex-2 {
+    display: flex;
+    justify-content: space-between;
+}
+
 .btn-flex-child {
     width: 55%;
     display: flex;
