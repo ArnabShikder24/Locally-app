@@ -100,15 +100,15 @@ const Registration = () => {
                         <p className='mb-2'>Antigüedad del negocio</p>
                         <div className="d-flex align-items-center gap-5">
                             <div className="custom-flex">
-                                <input onChange={handleInputChange} checked={formData.business_days === '0-1'} value='0-1' type="radio" name="business_days" id="" />
+                                <input type="radio" name="business_days" id="" />
                                 <p>0 - 1 años</p>
                             </div>
                             <div className="custom-flex">
-                                <input onChange={handleInputChange} checked={formData.business_days === '2-5'} value='2-5' type="radio" name="business_days" id="" />
+                                <input type="radio" name="business_days" id="" />
                                 <p>2 - 5 años</p>
                             </div>
                             <div className="custom-flex">
-                                <input onChange={handleInputChange} checked={formData.business_days === '5+'} value='5+' type="radio" name="business_days" id="" />
+                                <input type="radio" name="business_days" id="" />
                                 <p>+5 años</p>
                             </div>
                         </div>

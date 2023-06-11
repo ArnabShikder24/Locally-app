@@ -1,8 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Registration.css';
 import { Form } from 'react-bootstrap';
+import axios from 'axios';
 
 const Registration1 = () => {
+     const [formData, setFormData] = useState({
+        business_days: '',
+        price: '1000',
+        latitude: '37.7749',
+        longitude: '-122.4194',
+        antiquity: '5',
+        physical_store: '1',
+        questions: '5',
+        online_store: '1',
+        accepts_credit_cards: '1',
+        is_owner_verified: '1',
+        start_date: '2023-05-26',
+        end_date: '2023-06-30',
+        publication_likes: '100'
+    });
+    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        try {
+            const response = await axios.post(
+              'https://api-locallity-production.up.railway.app/api/v1/locality',
+              formData
+            );
+      
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+    }
     return (
         <div className='container p-2'>
             <div className='d-flex align-items-center'>
@@ -179,19 +218,6 @@ const Registration1 = () => {
                         </div>
                     </div>
                     <hr />
-                    <div className='mt-4'>
-                        <p className='mb-2'>¿Te gustaría agregar un código de descuento para los clientes que lleguen a tu negocio por medio de Locallity?</p>
-                        <div className="d-flex align-items-center gap-5">
-                            <div className="custom-flex">
-                                <input type="radio" name="shipping" id="" />
-                                <p>Sí</p>
-                            </div>
-                            <div className="custom-flex">
-                                <input type="radio" name="shipping" id="" />
-                                <p>No</p>
-                            </div>
-                        </div>
-                    </div>
                     <div className='pb-2'>
                         <Form>
                             <Form.Group className='mb-3'>
