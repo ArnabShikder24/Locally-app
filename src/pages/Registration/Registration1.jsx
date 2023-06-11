@@ -11,11 +11,11 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <p className='mb-2'>¿Cuentas con tienda física?</p>
                 <div className="d-flex align-items-center gap-5">
                     <div className="custom-flex">
-                        <input type="radio" name="shipping" id="" />
+                        <input onChange={handleInputChange} checked={formData.physical_store === '1'} type="radio" value='1' name="physical_store" id="" />
                         <p>Sí</p>
                     </div>
                     <div className="custom-flex">
-                        <input type="radio" name="shipping" id="" />
+                        <input onChange={handleInputChange} checked={formData.physical_store === '0'} type="radio" value='0' name="physical_store" id="" />
                         <p>No</p>
                     </div>
                 </div>
@@ -25,39 +25,39 @@ const Registration1 = ({handleInputChange, formData}) => {
         <div className='mt-2'>
             <Form.Group className='mb-3'>
                 <Form.Label className='lebel'>Ubicación en Google Maps</Form.Label>
-                <Form.Control name='description' className='control' type="text" placeholder="Pega aquí el enlace de Maps a tu negocio" />
+                <Form.Control onChange={handleInputChange} name='url_google' className='control' type="text" placeholder="Pega aquí el enlace de Maps a tu negocio" />
             </Form.Group>
         </div>
         <div className='mt-2'>
             <Form.Group className='mb-3'>
                 <Form.Label className='lebel'>Días que abren</Form.Label>
                 <div className='d-flex gap-2 align-items-baseline mb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <p className=' m-0'>Lunes</p>
+                    <input onChange={handleInputChange} type="checkbox" checked={formData.business_days.includes('Lunes')} name="Lunes" id="" />
+                    <p className='m-0'>Lunes</p>
                 </div>
                 <div className='d-flex gap-2 align-items-baseline mb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <p className=' m-0'>Martes</p>
+                    <input onChange={handleInputChange} type="checkbox" checked={formData.business_days.includes('Martes')} name="Martes" id="" />
+                    <p className='m-0'>Martes</p>
                 </div>
                 <div className='d-flex gap-2 align-items-baseline mb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <p className=' m-0'>Miércoles</p>
+                    <input onChange={handleInputChange} type="checkbox" checked={formData.business_days.includes('Miércoles')} name="Miércoles" id="" />
+                    <p className='m-0'>Miércoles</p>
                 </div>
                 <div className='d-flex gap-2 align-items-baseline mb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <p className=' m-0'>Jueves</p>
+                    <input onChange={handleInputChange} type="checkbox" checked={formData.business_days.includes('Jueves')} name="Jueves" id="" />
+                    <p className='m-0'>Jueves</p>
                 </div>
                 <div className='d-flex gap-2 align-items-baseline mb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <p className=' m-0'>Viernes</p>
+                    <input onChange={handleInputChange} type="checkbox" checked={formData.business_days.includes('Viernes')} name="Viernes" id="" />
+                    <p className='m-0'>Viernes</p>
                 </div>
                 <div className='d-flex gap-2 align-items-baseline mb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <p className=' m-0'>Sábado</p>
+                    <input onChange={handleInputChange} type="checkbox" checked={formData.business_days.includes('Sábado')} name="Sábado" id="" />
+                    <p className='m-0'>Sábado</p>
                 </div>
                 <div className='d-flex gap-2 align-items-baseline mb-2'>
-                    <input type="checkbox" name="" id="" />
-                    <p className=' m-0'>Domingo</p>
+                    <input onChange={handleInputChange} type="checkbox" checked={formData.business_days.includes('Domingo')} name="Domingo" id="" />
+                    <p className='m-0'>Domingo</p>
                 </div>
             </Form.Group>
         </div>
@@ -68,7 +68,7 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Hora de apertura</Form.Label>
-                    <Form.Control name='name' className='control' type="text" placeholder="Hora de apertura" />
+                    <Form.Control onChange={handleInputChange} name='start_date' className='control' type="text" placeholder="HH:MM:SS" />
                     </Form.Group>
                 </Form>
                 </div>
@@ -76,7 +76,7 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Hora de cierre</Form.Label>
-                    <Form.Control name='manager' className='control' type="text" placeholder="Hora de cierre" />
+                    <Form.Control onChange={handleInputChange} name='end_date' className='control' type="text" placeholder="HH:MM:SS" />
                     </Form.Group>
                 </Form>
                 </div>
@@ -89,29 +89,28 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <p className='mb-2'>¿Cuentas con tienda online?</p>
                 <div className="d-flex align-items-center gap-5">
                     <div className="custom-flex">
-                        <input type="radio" name="shipping" id="" />
+                        <input onChange={handleInputChange} checked={formData.online_store === '1'} value='1' type="radio" name="online_store" id="" />
                         <p>Sí</p>
                     </div>
                     <div className="custom-flex">
-                        <input type="radio" name="shipping" id="" />
+                        <input onChange={handleInputChange} checked={formData.online_store === '0'} value='0' type="radio" name="online_store" id="" />
                         <p>No</p>
                     </div>
                 </div>
             </div>
         </div>
         <div className='pb-2'>
-            <h5 className='mb-3'>Información General</h5>
             <div className="row">
                 <div className="col-md-6">
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Sitio web</Form.Label>
-                    <Form.Control name='name' className='control' type="text" placeholder="" />
+                    <Form.Control onBlur={handleInputChange} name='social_networks' className='control' type="text" placeholder="" />
                     </Form.Group>
 
                     <Form.Group>
                     <Form.Label className='lebel'>Instagram</Form.Label>
-                    <Form.Control name='email' className='control' type="text" placeholder="" />
+                    <Form.Control onBlur={handleInputChange} name='social_networks' className='control' type="text" placeholder="" />
                     </Form.Group>
                 </Form>
                 </div>
@@ -119,12 +118,12 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Facebook</Form.Label>
-                    <Form.Control name='manager' className='control' type="text" placeholder="" />
+                    <Form.Control onBlur={handleInputChange} name='social_networks' className='control' type="text" placeholder="" />
                     </Form.Group>
 
                     <Form.Group>
                     <Form.Label className='lebel'>TikTok</Form.Label>
-                    <Form.Control name='cell_phone_number' className='control' type="text" placeholder="" />
+                    <Form.Control onBlur={handleInputChange} name='social_networks' className='control' type="text" placeholder="" />
                     </Form.Group>
                 </Form>
                 </div>
@@ -142,12 +141,12 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Categoría</Form.Label>
-                    <Form.Select name='state' aria-label="Default select example">
-                            <option value="">Papelería</option>
-                            <option value="">Eventos</option>
-                            <option value="">Regalos</option>
-                            <option value="">Bienestar</option>
-                            <option value="">Hogar</option>
+                    <Form.Select onChange={handleInputChange} name='category' aria-label="Default select example">
+                            <option value="Papelería">Papelería</option>
+                            <option value="Eventos">Eventos</option>
+                            <option value="Regalos">Regalos</option>
+                            <option value="Bienestar">Bienestar</option>
+                            <option value="Hogar">Hogar</option>
                     </Form.Select>
                     </Form.Group>
                 </Form>
@@ -156,15 +155,15 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Ciudad</Form.Label>
-                    <Form.Select name='city' aria-label="Default select example">
-                            <option value="">Muebles</option>
-                            <option value="">Fragancias</option>
-                            <option value="">Decoración General</option>
-                            <option value="">Cocina</option>
-                            <option value="">Mudanza</option>
-                            <option value="">Exterior</option>
-                            <option value="">Casa Inteligente</option>
-                            <option value="">Diseño de Interiores</option>
+                    <Form.Select onChange={handleInputChange} name='subcategory' aria-label="Default select example">
+                            <option value="Muebles">Muebles</option>
+                            <option value="Fragancias">Fragancias</option>
+                            <option value="Decoración General">Decoración General</option>
+                            <option value="Cocina">Cocina</option>
+                            <option value="Mudanza">Mudanza</option>
+                            <option value="Exterior">Exterior</option>
+                            <option value="Casa Inteligente">Casa Inteligente</option>
+                            <option value="Diseño de Interiores">Diseño de Interiores</option>
                     </Form.Select>
                     </Form.Group>
                 </Form>
@@ -176,7 +175,7 @@ const Registration1 = ({handleInputChange, formData}) => {
             <Form>
                 <Form.Group className='mb-3'>
                 <Form.Label className='lebel'>Agrega el código, fecha de vencimiento y una pequeña descripción de lo que sería el beneficio.</Form.Label>
-                <Form.Control name='manager' className='control' type="text" />
+                <Form.Control onChange={handleInputChange} name='discount_code' className='control' type="text" placeholder='...' />
                 <Form.Label className='lebel'>Ej. 10% de descuento en nuestra tienda en línea con el código LOCALLITY10 - vigencia al 30 de julio 2023.</Form.Label>
                 </Form.Group>
             </Form>

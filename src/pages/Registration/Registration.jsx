@@ -44,15 +44,15 @@ const Register = ({handleInputChange, formData}) => {
                 <p className='mb-2'>Antigüedad del negocio</p>
                 <div className="d-flex align-items-center gap-5">
                     <div className="custom-flex">
-                        <input type="radio" name="business_days" id="" />
+                        <input onChange={handleInputChange} type="radio" checked={formData.business_age === '0-1'} value="0-1" name="business_age" id="" />
                         <p>0 - 1 años</p>
                     </div>
                     <div className="custom-flex">
-                        <input type="radio" name="business_days" id="" />
+                        <input onChange={handleInputChange} type="radio" checked={formData.business_age === '2-5'} value="2-5" name="business_age" id="" />
                         <p>2 - 5 años</p>
                     </div>
                     <div className="custom-flex">
-                        <input type="radio" name="business_days" id="" />
+                        <input onChange={handleInputChange} type="radio" checked={formData.business_age === '5+'} value="5+" name="business_age" id="" />
                         <p>+5 años</p>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ const Register = ({handleInputChange, formData}) => {
                         <p>Sí</p>
                     </div>
                     <div className="custom-flex">
-                        <input onChange={handleInputChange} checked={formData.delivery === '0'} value='0' type="radio" name="bill" id="" />
+                        <input onChange={handleInputChange} checked={formData.bill === '0'} value='0' type="radio" name="bill" id="" />
                         <p>No</p>
                     </div>
                 </div>
@@ -161,49 +161,86 @@ const Registration = () => {
         email: '',
         manager: '',
         cell_phone_number: '',
-        business_days: '',
+        business_age: '0-1',
         description: '',
-        delivery: '',
-        shipping: '',
-        bill: '',
+        delivery: '1',
+        shipping: '1',
+        bill: '1',
         state: 'Nuevo León',
         city: 'Monterrey',
         address_3: '',
-        price: '1000',
-        latitude: '37.7749',
-        longitude: '-122.4194',
-        antiquity: '5',
         physical_store: '1',
-        questions: '5',
+        url_google: '',
+        business_days: '',
+        start_date: '',
+        end_date: '',
         online_store: '1',
+        social_networks: '',
+        category: '',
+        subcategory: '',
+        discount_code: '',
+        price: '1000',
+        antiquity: '5',
+        questions: '5',
         accepts_credit_cards: '1',
         is_owner_verified: '1',
-        start_date: '2023-05-26',
-        end_date: '2023-06-30',
         publication_likes: '100'
     });
-    
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          [name]: value,
-        }));
-    };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleInputChange = (e) => {
+        const { name, value, type } = e.target;
+
+        if (name === 'social_networks') {
+            setFormData((prevFormData) => {
+                const updatedNetworks = [value, ...prevFormData.social_networks.split(',')].filter(Boolean).join(',');
+                
+                return {
+                    ...prevFormData,
+                    social_networks: updatedNetworks
+                };
+            });   
+        }
+        else if (type === 'checkbox') {
+          const isChecked = e.target.checked;
+    
+          setFormData((prevFormData) => {
+            let updatedDays = prevFormData.business_days.split(',');
+            if (isChecked) {
+              // Add the day to the array if checked
+              updatedDays.push(name);
+            } else {
+              // Remove the day from the array if unchecked
+              updatedDays = updatedDays.filter((day) => day !== name);
+            }
+            // Join the updated days array into a comma-separated string
+            const updatedBusinessDays = updatedDays.join(',');
+            return {
+              ...prevFormData,
+              business_days: updatedBusinessDays
+            };
+          });
+        } else {
+            // default
+            setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value
+            }));
+        }
         
-        try {
-            const response = await axios.post(
-              'https://api-locallity-production.up.railway.app/api/v1/locality',
-              formData
-            );
+      };
+
+    const handleSubmit = async () => {
+        console.log(formData);
+        // try {
+        //     const response = await axios.post(
+        //       'https://api-locallity-production.up.railway.app/api/v1/locality',
+        //       formData
+        //     );
       
-            console.log(response.data);
-          } catch (error) {
-            console.error(error);
-          }
+        //     console.log(response.data);
+        //   } catch (error) {
+        //     console.error(error);
+        //   }
     }
       
 
@@ -240,8 +277,7 @@ const Registration = () => {
                                 }} className='px-5 rounded-1 btn btn-light fs-6'>Atrás</button>
                                 <p>Etapa 2 de 2</p>
                                 <button onClick={() => {
-                                    setSwitchPage(3)
-                                    window.scrollTo({ top: 0, behavior: 'instant' });
+                                    handleSubmit()
                                 }} className='px-5 rounded-1 btn btn-primary fs-6'>Siguiente</button>
                             </div>
                         } 
