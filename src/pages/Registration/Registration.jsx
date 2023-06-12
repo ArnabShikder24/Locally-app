@@ -120,7 +120,7 @@ const Register = ({handleInputChange, formData}) => {
 
                         <Form.Group>
                         <Form.Label className='lebel'>Municipio</Form.Label>
-                        <Form.Select onChange={handleInputChange} name='address_3' aria-label="Default select example">
+                        <Form.Select onChange={handleInputChange} name='municipality' aria-label="Default select example">
                             <option value="Apodaca">Apodaca</option>
                             <option value="Cadereyta Jiménez">Cadereyta Jiménez</option>
                             <option value="García">García</option>
@@ -168,12 +168,12 @@ const Registration = () => {
         bill: '1',
         state: 'Nuevo León',
         city: 'Monterrey',
-        address_3: '',
+        municipality: '',
         physical_store: '1',
         url_google: '',
         business_days: '',
-        start_date: '',
-        end_date: '',
+        start_date: '2023-05-26',
+        end_date: '2023-10-26',
         online_store: '1',
         social_networks: '',
         category: '',
@@ -182,6 +182,11 @@ const Registration = () => {
         price: '1000',
         antiquity: '5',
         questions: '5',
+        event_classification: 'example',
+        address_1: 'maxico city',
+        address_2: 'maxico city',
+        address_3: 'maxico city',
+        capacity_people: '100',
         accepts_credit_cards: '1',
         is_owner_verified: '1',
         publication_likes: '100'
@@ -231,16 +236,56 @@ const Registration = () => {
 
     const handleSubmit = async () => {
         console.log(formData);
-        // try {
-        //     const response = await axios.post(
-        //       'https://api-locallity-production.up.railway.app/api/v1/locality',
-        //       formData
-        //     );
-      
-        //     console.log(response.data);
-        //   } catch (error) {
-        //     console.error(error);
-        //   }
+        const data = new FormData();
+        data.append('name', formData.name);
+        data.append('price', '10000');
+        data.append('manager', formData.manager);
+        data.append('description', formData.description);
+        data.append('event_classification', 'Birthday');
+        data.append('capacity_people', '100');
+        data.append('address_1', 'Juarez Ave. #123');
+        data.append('address_2', 'Juarez Ave. #123');
+        data.append('address_3', 'Juarez Ave. #123');
+        data.append('city', formData.city);
+        data.append('state', formData.state);
+        data.append('country', 'Mexico');
+        data.append('postal_code', '4100');
+        data.append('cell_phone_number', formData.cell_phone_number);
+        data.append('email', formData.email);
+        data.append('event_type', 'Social');
+        data.append('publication_likes', '100');
+        data.append('questions', '5');
+        data.append('policies_terms', 'policies and terms');
+        data.append('delivery', formData.delivery);
+        data.append('shipping', formData.shipping);
+        data.append('bill', formData.bill);
+        data.append('antiquity', formData.antiquity);
+        data.append('physical_store', formData.physical_store);
+        data.append('online_store', formData.online_store);
+        data.append('url_google', formData.url_google);
+        data.append('business_days', formData.business_days);
+        data.append('category', formData.category);
+        data.append('subcategory', formData.subcategory);
+        data.append('discount_code', formData.discount_code);
+        data.append('business_age', formData.business_age);
+        data.append('municipality', formData.municipality);
+        data.append('accepts_credit_cards', formData.accepts_credit_cards);
+        data.append('is_owner_verified', '1');
+        data.append('status', 'Activo');
+        data.append('start_date', formData.start_date);
+        data.append('end_date', formData.end_date);
+        data.append('social_networks', formData.social_networks);
+
+        try {
+            const response = await axios.post(
+              'https://api-locallity-production.up.railway.app/api/v1/locality',
+              data
+            );
+        
+            console.log(response);
+          } catch (error) {
+            console.error(error);
+          }
     }
       
 
@@ -276,9 +321,7 @@ const Registration = () => {
                                     window.scrollTo({ top: 0, behavior: 'instant' });
                                 }} className='px-5 rounded-1 btn btn-light fs-6'>Atrás</button>
                                 <p>Etapa 2 de 2</p>
-                                <button onClick={() => {
-                                    handleSubmit()
-                                }} className='px-5 rounded-1 btn btn-primary fs-6'>Siguiente</button>
+                                <button onClick={handleSubmit} className='px-5 rounded-1 btn btn-primary fs-6'>Siguiente</button>
                             </div>
                         } 
                         {switchPage === 3 && 

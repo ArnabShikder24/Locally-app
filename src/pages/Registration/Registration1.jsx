@@ -68,7 +68,7 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Hora de apertura</Form.Label>
-                    <Form.Control onChange={handleInputChange} name='start_date' className='control' type="text" placeholder="HH:MM:SS" />
+                    <Form.Control onChange={handleInputChange} name='start_date' className='control' type="text" placeholder="HH-MM-SS" />
                     </Form.Group>
                 </Form>
                 </div>
@@ -76,7 +76,7 @@ const Registration1 = ({handleInputChange, formData}) => {
                 <Form>
                     <Form.Group className='mb-3'>
                     <Form.Label className='lebel'>Hora de cierre</Form.Label>
-                    <Form.Control onChange={handleInputChange} name='end_date' className='control' type="text" placeholder="HH:MM:SS" />
+                    <Form.Control onChange={handleInputChange} name='end_date' className='control' type="text" placeholder="HH-MM-SS" />
                     </Form.Group>
                 </Form>
                 </div>
