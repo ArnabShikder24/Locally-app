@@ -156,6 +156,8 @@ const Register = ({handleInputChange, formData}) => {
 
 const Registration = () => {
     const [switchPage, setSwitchPage] = useState(1);
+    const [selectedImgFile, setSelectedImgFile] = useState(null);
+    const [selectedLogoFile, setSelectedLogoFile] = useState(null);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -205,6 +207,11 @@ const Registration = () => {
                 };
             });   
         }
+        else if (type === 'file') {
+            if (e.target.files && e.target.files.length > 0) {
+                setSelectedLogoFile(e.target.files[0]);
+            }
+        }
         else if (type === 'checkbox') {
           const isChecked = e.target.checked;
     
@@ -234,8 +241,13 @@ const Registration = () => {
         
       };
 
+      const handleFileChange = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setSelectedImgFile(e.target.files[0]);
+        }
+      };
+
     const handleSubmit = async () => {
-        console.log(formData);
         const data = new FormData();
         data.append('name', formData.name);
         data.append('price', '10000');
@@ -275,6 +287,8 @@ const Registration = () => {
         data.append('start_date', formData.start_date);
         data.append('end_date', formData.end_date);
         data.append('social_networks', formData.social_networks);
+        data.append('images', selectedImgFile);
+        data.append('logo', selectedLogoFile);
 
         try {
             const response = await axios.post(
@@ -300,7 +314,7 @@ const Registration = () => {
                     <hr />
                     {switchPage === 1 && <Register handleInputChange={handleInputChange} formData={formData} />}
                     {switchPage === 2 && <Registration1 handleInputChange={handleInputChange} formData={formData} />}
-                    {switchPage === 3 && <Registration2 handleInputChange={handleInputChange} formData={formData} />}
+                    {switchPage === 3 && <Registration2 handleInputChange={handleInputChange} handleFileChange={handleFileChange} />}
                     <hr />
                     <div className='pb-5'>
                         {switchPage === 1 && 
@@ -321,7 +335,10 @@ const Registration = () => {
                                     window.scrollTo({ top: 0, behavior: 'instant' });
                                 }} className='px-5 rounded-1 btn btn-light fs-6'>Atrás</button>
                                 <p>Etapa 2 de 2</p>
-                                <button onClick={handleSubmit} className='px-5 rounded-1 btn btn-primary fs-6'>Siguiente</button>
+                                <button onClick={() => {
+                                    setSwitchPage(3)
+                                    window.scrollTo({ top: 0, behavior: 'instant' });
+                                }} className='px-5 rounded-1 btn btn-primary fs-6'>Siguiente</button>
                             </div>
                         } 
                         {switchPage === 3 && 
@@ -330,7 +347,7 @@ const Registration = () => {
                                     setSwitchPage(2)
                                     window.scrollTo({ top: 0, behavior: 'instant' });
                                 }} className='px-5 rounded-1 btn btn-light fs-6'>Atrás</button>
-                                <button className='px-5 rounded-1 btn btn-primary fs-6'>Enviar datos</button>
+                                <button onClick={handleSubmit} className='px-5 rounded-1 btn btn-primary fs-6'>Enviar datos</button>
                             </div>
                         } 
                     </div>
